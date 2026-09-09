@@ -2,7 +2,7 @@
 
 import { type Client, type Options as Options2, type TDataShape, urlSearchParamsBodySerializer } from './client';
 import { client } from './client.gen';
-import type { itemsCreateItemData, itemsCreateItemErrors, itemsCreateItemResponses, itemsDeleteItemData, itemsDeleteItemErrors, itemsDeleteItemResponses, itemsReadItemData, itemsReadItemErrors, itemsReadItemResponses, itemsReadItemsData, itemsReadItemsErrors, itemsReadItemsResponses, itemsUpdateItemData, itemsUpdateItemErrors, itemsUpdateItemResponses, loginLoginAccessTokenData, loginLoginAccessTokenErrors, loginLoginAccessTokenResponses, loginRecoverPasswordData, loginRecoverPasswordErrors, loginRecoverPasswordHtmlContentData, loginRecoverPasswordHtmlContentErrors, loginRecoverPasswordHtmlContentResponses, loginRecoverPasswordResponses, loginResetPasswordData, loginResetPasswordErrors, loginResetPasswordResponses, loginTestTokenData, loginTestTokenResponses, privateCreateUserData, privateCreateUserErrors, privateCreateUserResponses, usersCreateUserData, usersCreateUserErrors, usersCreateUserResponses, usersDeleteUserData, usersDeleteUserErrors, usersDeleteUserMeData, usersDeleteUserMeResponses, usersDeleteUserResponses, usersReadUserByIdData, usersReadUserByIdErrors, usersReadUserByIdResponses, usersReadUserMeData, usersReadUserMeResponses, usersReadUsersData, usersReadUsersErrors, usersReadUsersResponses, usersRegisterUserData, usersRegisterUserErrors, usersRegisterUserResponses, usersUpdatePasswordMeData, usersUpdatePasswordMeErrors, usersUpdatePasswordMeResponses, usersUpdateUserData, usersUpdateUserErrors, usersUpdateUserMeData, usersUpdateUserMeErrors, usersUpdateUserMeResponses, usersUpdateUserResponses, utilsHealthCheckData, utilsHealthCheckResponses, utilsTestEmailData, utilsTestEmailErrors, utilsTestEmailResponses } from './types.gen';
+import type { itemsCreateItemData, itemsCreateItemErrors, itemsCreateItemResponses, itemsDeleteItemData, itemsDeleteItemErrors, itemsDeleteItemResponses, itemsReadItemData, itemsReadItemErrors, itemsReadItemResponses, itemsReadItemsData, itemsReadItemsErrors, itemsReadItemsResponses, itemsUpdateItemData, itemsUpdateItemErrors, itemsUpdateItemResponses, loginLoginAccessTokenData, loginLoginAccessTokenErrors, loginLoginAccessTokenResponses, loginRecoverPasswordData, loginRecoverPasswordErrors, loginRecoverPasswordHtmlContentData, loginRecoverPasswordHtmlContentErrors, loginRecoverPasswordHtmlContentResponses, loginRecoverPasswordResponses, loginResetPasswordData, loginResetPasswordErrors, loginResetPasswordResponses, loginTestTokenData, loginTestTokenResponses, notesCreateNoteData, notesCreateNoteErrors, notesCreateNoteResponses, notesDeleteNoteData, notesDeleteNoteErrors, notesDeleteNoteResponses, notesReadNoteData, notesReadNoteErrors, notesReadNoteResponses, notesReadNotesData, notesReadNotesErrors, notesReadNotesResponses, notesTogglePinNoteData, notesTogglePinNoteErrors, notesTogglePinNoteResponses, notesUpdateNoteData, notesUpdateNoteErrors, notesUpdateNoteResponses, privateCreateUserData, privateCreateUserErrors, privateCreateUserResponses, usersCreateUserData, usersCreateUserErrors, usersCreateUserResponses, usersDeleteUserData, usersDeleteUserErrors, usersDeleteUserMeData, usersDeleteUserMeResponses, usersDeleteUserResponses, usersReadUserByIdData, usersReadUserByIdErrors, usersReadUserByIdResponses, usersReadUserMeData, usersReadUserMeResponses, usersReadUsersData, usersReadUsersErrors, usersReadUsersResponses, usersRegisterUserData, usersRegisterUserErrors, usersRegisterUserResponses, usersUpdatePasswordMeData, usersUpdatePasswordMeErrors, usersUpdatePasswordMeResponses, usersUpdateUserData, usersUpdateUserErrors, usersUpdateUserMeData, usersUpdateUserMeErrors, usersUpdateUserMeResponses, usersUpdateUserResponses, utilsHealthCheckData, utilsHealthCheckResponses, utilsTestEmailData, utilsTestEmailErrors, utilsTestEmailResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -360,6 +360,102 @@ export class ItemsService {
                 'Content-Type': 'application/json',
                 ...options.headers
             }
+        });
+    }
+}
+
+export class NotesService {
+    /**
+     * Read Notes
+     *
+     * Retrieve notes. Superusers can view all notes, normal users only view their own.
+     * Supports filtering by search query (title/content), tag, and pinned status.
+     * Results are ordered with pinned notes first, then by updated_at descending.
+     */
+    public static readNotes<ThrowOnError extends boolean = true>(options?: Options<notesReadNotesData, ThrowOnError>) {
+        return (options?.client ?? client).get<notesReadNotesResponses, notesReadNotesErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/notes/',
+            ...options
+        });
+    }
+    
+    /**
+     * Create Note
+     *
+     * Create a new note.
+     */
+    public static createNote<ThrowOnError extends boolean = true>(options: Options<notesCreateNoteData, ThrowOnError>) {
+        return (options.client ?? client).post<notesCreateNoteResponses, notesCreateNoteErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/notes/',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete Note
+     *
+     * Delete a note.
+     */
+    public static deleteNote<ThrowOnError extends boolean = true>(options: Options<notesDeleteNoteData, ThrowOnError>) {
+        return (options.client ?? client).delete<notesDeleteNoteResponses, notesDeleteNoteErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/notes/{id}',
+            ...options
+        });
+    }
+    
+    /**
+     * Read Note
+     *
+     * Get note by ID.
+     */
+    public static readNote<ThrowOnError extends boolean = true>(options: Options<notesReadNoteData, ThrowOnError>) {
+        return (options.client ?? client).get<notesReadNoteResponses, notesReadNoteErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/notes/{id}',
+            ...options
+        });
+    }
+    
+    /**
+     * Update Note
+     *
+     * Update a note.
+     */
+    public static updateNote<ThrowOnError extends boolean = true>(options: Options<notesUpdateNoteData, ThrowOnError>) {
+        return (options.client ?? client).put<notesUpdateNoteResponses, notesUpdateNoteErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/notes/{id}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Toggle Pin Note
+     *
+     * Toggle pinned status of a note.
+     */
+    public static togglePinNote<ThrowOnError extends boolean = true>(options: Options<notesTogglePinNoteData, ThrowOnError>) {
+        return (options.client ?? client).patch<notesTogglePinNoteResponses, notesTogglePinNoteErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/notes/{id}/pin',
+            ...options
         });
     }
 }

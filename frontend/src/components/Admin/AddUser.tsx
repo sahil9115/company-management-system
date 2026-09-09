@@ -52,7 +52,11 @@ const formSchema = z
 
 type FormData = z.infer<typeof formSchema>
 
-const AddUser = () => {
+interface AddUserProps {
+  onUserCreated?: (userId: string) => void
+}
+
+const AddUser = ({ onUserCreated }: AddUserProps = {}) => {
   const [isOpen, setIsOpen] = useState(false)
   const queryClient = useQueryClient()
   const { showSuccessToast, showErrorToast } = useCustomToast()
@@ -73,10 +77,13 @@ const AddUser = () => {
 
   const mutation = useMutation({
     mutationFn: (data: UserCreate) => UsersService.createUser({ body: data }),
-    onSuccess: () => {
+    onSuccess: (response) => {
       showSuccessToast("User created successfully")
       form.reset()
       setIsOpen(false)
+      if (response?.data?.id) {
+        onUserCreated?.(response.data.id)
+      }
     },
     onError: handleError.bind(showErrorToast),
     onSettled: () => {

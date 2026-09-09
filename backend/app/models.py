@@ -57,6 +57,7 @@ class User(UserBase, table=True):
         sa_type=DateTime(timezone=True),  # type: ignore
     )
     items: list[Item] = Relationship(back_populates="owner", cascade_delete=True)
+    notes: list[Note] = Relationship(back_populates="owner", cascade_delete=True)
 
 
 # Properties to return via API, id is always required
@@ -109,6 +110,59 @@ class ItemPublic(ItemBase):
 
 class ItemsPublic(SQLModel):
     data: list[ItemPublic]
+    count: int
+
+
+# ── Note models ──
+
+# Shared properties
+class NoteBase(SQLModel):
+    title: str = Field(min_length=1, max_length=255)
+    content: str = Field(default="", max_length=10000)
+    is_pinned: bool = Field(default=False)
+    tags: str = Field(default="", max_length=500)
+
+
+# Properties to receive on note creation
+class NoteCreate(NoteBase):
+    pass
+
+
+# Properties to receive on note update
+class NoteUpdate(SQLModel):
+    title: str | None = Field(default=None, min_length=1, max_length=255)
+    content: str | None = Field(default=None, max_length=10000)
+    is_pinned: bool | None = None
+    tags: str | None = Field(default=None, max_length=500)
+
+
+# Database model
+class Note(NoteBase, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    created_at: datetime | None = Field(
+        default_factory=get_datetime_utc,
+        sa_type=DateTime(timezone=True),  # type: ignore
+    )
+    updated_at: datetime | None = Field(
+        default_factory=get_datetime_utc,
+        sa_type=DateTime(timezone=True),  # type: ignore
+    )
+    owner_id: uuid.UUID = Field(
+        foreign_key="user.id", nullable=False, ondelete="CASCADE"
+    )
+    owner: User | None = Relationship(back_populates="notes")
+
+
+# Properties to return via API
+class NotePublic(NoteBase):
+    id: uuid.UUID
+    owner_id: uuid.UUID
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
+
+
+class NotesPublic(SQLModel):
+    data: list[NotePublic]
     count: int
 
 

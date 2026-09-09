@@ -137,6 +137,102 @@ export type NewPassword = {
 };
 
 /**
+ * NoteCreate
+ */
+export type NoteCreate = {
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Content
+     */
+    content?: string;
+    /**
+     * Is Pinned
+     */
+    is_pinned?: boolean;
+    /**
+     * Tags
+     */
+    tags?: string;
+};
+
+/**
+ * NotePublic
+ */
+export type NotePublic = {
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Content
+     */
+    content?: string;
+    /**
+     * Is Pinned
+     */
+    is_pinned?: boolean;
+    /**
+     * Tags
+     */
+    tags?: string;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Owner Id
+     */
+    owner_id: string;
+    /**
+     * Created At
+     */
+    created_at?: string | null;
+    /**
+     * Updated At
+     */
+    updated_at?: string | null;
+};
+
+/**
+ * NoteUpdate
+ */
+export type NoteUpdate = {
+    /**
+     * Title
+     */
+    title?: string | null;
+    /**
+     * Content
+     */
+    content?: string | null;
+    /**
+     * Is Pinned
+     */
+    is_pinned?: boolean | null;
+    /**
+     * Tags
+     */
+    tags?: string | null;
+};
+
+/**
+ * NotesPublic
+ */
+export type NotesPublic = {
+    /**
+     * Data
+     */
+    data: Array<NotePublic>;
+    /**
+     * Count
+     */
+    count: number;
+};
+
+/**
  * PrivateUserCreate
  */
 export type PrivateUserCreate = {
@@ -920,6 +1016,197 @@ export type itemsUpdateItemResponses = {
 };
 
 export type itemsUpdateItemResponse = itemsUpdateItemResponses[keyof itemsUpdateItemResponses];
+
+export type notesReadNotesData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Skip
+         */
+        skip?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Search
+         */
+        search?: string | null;
+        /**
+         * Tag
+         */
+        tag?: string | null;
+        /**
+         * Pinned
+         */
+        pinned?: boolean | null;
+    };
+    url: '/api/v1/notes/';
+};
+
+export type notesReadNotesErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type notesReadNotesError = notesReadNotesErrors[keyof notesReadNotesErrors];
+
+export type notesReadNotesResponses = {
+    /**
+     * Successful Response
+     */
+    200: NotesPublic;
+};
+
+export type notesReadNotesResponse = notesReadNotesResponses[keyof notesReadNotesResponses];
+
+export type notesCreateNoteData = {
+    body: NoteCreate;
+    path?: never;
+    query?: never;
+    url: '/api/v1/notes/';
+};
+
+export type notesCreateNoteErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type notesCreateNoteError = notesCreateNoteErrors[keyof notesCreateNoteErrors];
+
+export type notesCreateNoteResponses = {
+    /**
+     * Successful Response
+     */
+    200: NotePublic;
+};
+
+export type notesCreateNoteResponse = notesCreateNoteResponses[keyof notesCreateNoteResponses];
+
+export type notesDeleteNoteData = {
+    body?: never;
+    path: {
+        /**
+         * Id
+         */
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/notes/{id}';
+};
+
+export type notesDeleteNoteErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type notesDeleteNoteError = notesDeleteNoteErrors[keyof notesDeleteNoteErrors];
+
+export type notesDeleteNoteResponses = {
+    /**
+     * Successful Response
+     */
+    200: Message;
+};
+
+export type notesDeleteNoteResponse = notesDeleteNoteResponses[keyof notesDeleteNoteResponses];
+
+export type notesReadNoteData = {
+    body?: never;
+    path: {
+        /**
+         * Id
+         */
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/notes/{id}';
+};
+
+export type notesReadNoteErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type notesReadNoteError = notesReadNoteErrors[keyof notesReadNoteErrors];
+
+export type notesReadNoteResponses = {
+    /**
+     * Successful Response
+     */
+    200: NotePublic;
+};
+
+export type notesReadNoteResponse = notesReadNoteResponses[keyof notesReadNoteResponses];
+
+export type notesUpdateNoteData = {
+    body: NoteUpdate;
+    path: {
+        /**
+         * Id
+         */
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/notes/{id}';
+};
+
+export type notesUpdateNoteErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type notesUpdateNoteError = notesUpdateNoteErrors[keyof notesUpdateNoteErrors];
+
+export type notesUpdateNoteResponses = {
+    /**
+     * Successful Response
+     */
+    200: NotePublic;
+};
+
+export type notesUpdateNoteResponse = notesUpdateNoteResponses[keyof notesUpdateNoteResponses];
+
+export type notesTogglePinNoteData = {
+    body?: never;
+    path: {
+        /**
+         * Id
+         */
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/notes/{id}/pin';
+};
+
+export type notesTogglePinNoteErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type notesTogglePinNoteError = notesTogglePinNoteErrors[keyof notesTogglePinNoteErrors];
+
+export type notesTogglePinNoteResponses = {
+    /**
+     * Successful Response
+     */
+    200: NotePublic;
+};
+
+export type notesTogglePinNoteResponse = notesTogglePinNoteResponses[keyof notesTogglePinNoteResponses];
 
 export type privateCreateUserData = {
     body: PrivateUserCreate;

@@ -22,6 +22,7 @@ def db() -> Generator[Session]:
         statement = delete(User)
         session.execute(statement)
         session.commit()
+        init_db(session)
 
 
 @pytest.fixture(scope="module")

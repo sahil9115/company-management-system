@@ -122,3 +122,54 @@
     cursor: pointer;
   }
 }
+
+@keyframes card-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes card-exit {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.9) translateX(24px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.7) translateX(60px);
+  }
+}
+
+@keyframes highlight-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.65 0.10687 182.4689 / 0);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px oklch(0.65 0.10687 182.4689 / 0.55),
+      0 0 24px 4px oklch(0.65 0.10687 182.4689 / 0.35);
+  }
+}
+
+.animate-card-enter {
+  animation: card-enter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-card-exit {
+  animation: card-exit 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+.animate-highlight-glow {
+  animation: highlight-glow 1.2s ease-in-out infinite;
+}

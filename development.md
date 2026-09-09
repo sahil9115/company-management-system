@@ -32,13 +32,13 @@ bun run dev
 
 Now you can open these URLs:
 
-Frontend development server: <http://localhost:5173>
+Frontend development server: [http://localhost:5173](http://localhost:5173)
 
-Backend API: <http://localhost:8000>
+Backend API: [http://localhost:8000](http://localhost:8000)
 
-Automatic interactive API documentation with Swagger UI: <http://localhost:8000/docs>
+Automatic interactive API documentation with Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-Mailpit: <http://localhost:8025>
+Mailpit: [http://localhost:8025](http://localhost:8025)
 
 The frontend development server uses the backend at `http://localhost:8000`, as configured in `frontend/.env`.
 
@@ -50,7 +50,7 @@ Build the frontend from the `frontend` directory:
 bun run build
 ```
 
-The build is written to `backend/app/frontend` and served by FastAPI at <http://localhost:8000>. Rebuild the frontend after making frontend changes.
+The build is written to `backend/app/frontend` and served by FastAPI at [http://localhost:8000](http://localhost:8000). Rebuild the frontend after making frontend changes.
 
 ## Full Stack with Docker Compose
 
@@ -63,15 +63,15 @@ docker compose watch
 
 Now you can open these URLs:
 
-Application, with the frontend and API served by FastAPI: <http://localhost:8000>
+Application, with the frontend and API served by FastAPI: [http://localhost:8000](http://localhost:8000)
 
-Automatic interactive API documentation with Swagger UI: <http://localhost:8000/docs>
+Automatic interactive API documentation with Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-Adminer, database web administration: <http://localhost:8080>
+Adminer, database web administration: [http://localhost:8080](http://localhost:8080)
 
-Traefik UI, to see how the routes are being handled by the proxy: <http://localhost:8090>
+Traefik UI, to see how the routes are being handled by the proxy: [http://localhost:8090](http://localhost:8090)
 
-Mailpit: <http://localhost:8025>
+Mailpit: [http://localhost:8025](http://localhost:8025)
 
 Stop a locally running FastAPI server before starting the Compose backend because both use port `8000`.
 
@@ -79,7 +79,7 @@ Stop a locally running FastAPI server before starting the Compose backend becaus
 
 ## Mailpit
 
-[Mailpit](https://mailpit.axllent.org) captures emails sent during local development instead of delivering them. The local backend connects to it at `localhost:1025`, and the Compose backend connects to the `mailpit` service. Captured emails are available at <http://localhost:8025>.
+[Mailpit](https://mailpit.axllent.org) captures emails sent during local development instead of delivering them. The local backend connects to it at `localhost:1025`, and the Compose backend connects to the `mailpit` service. Captured emails are available at [http://localhost:8025](http://localhost:8025).
 
 ## Docker Compose Files and Environment Variables
 

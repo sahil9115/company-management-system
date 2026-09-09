@@ -53,10 +53,11 @@ type FormData = z.infer<typeof formSchema>
 
 interface EditUserProps {
   user: UserPublic
-  onSuccess: () => void
+  onSuccess?: () => void
+  trigger?: "dropdown" | "button" | "icon"
 }
 
-const EditUser = ({ user, onSuccess }: EditUserProps) => {
+const EditUser = ({ user, onSuccess, trigger = "dropdown" }: EditUserProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const queryClient = useQueryClient()
   const { showSuccessToast, showErrorToast } = useCustomToast()
@@ -79,7 +80,7 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
     onSuccess: () => {
       showSuccessToast("User updated successfully")
       setIsOpen(false)
-      onSuccess()
+      onSuccess?.()
     },
     onError: handleError.bind(showErrorToast),
     onSettled: () => {
@@ -98,13 +99,37 @@ const EditUser = ({ user, onSuccess }: EditUserProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DropdownMenuItem
-        onSelect={(e) => e.preventDefault()}
-        onClick={() => setIsOpen(true)}
-      >
-        <Pencil />
-        Edit User
-      </DropdownMenuItem>
+      {trigger === "dropdown" && (
+        <DropdownMenuItem
+          onSelect={(e) => e.preventDefault()}
+          onClick={() => setIsOpen(true)}
+        >
+          <Pencil />
+          Edit User
+        </DropdownMenuItem>
+      )}
+      {trigger === "button" && (
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-1.5 h-8 px-2.5 text-xs font-medium"
+          onClick={() => setIsOpen(true)}
+        >
+          <Pencil className="h-3.5 w-3.5" />
+          Edit
+        </Button>
+      )}
+      {trigger === "icon" && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 text-muted-foreground hover:text-foreground"
+          onClick={() => setIsOpen(true)}
+          title="Edit User"
+        >
+          <Pencil className="h-4 w-4" />
+        </Button>
+      )}
       <DialogContent className="sm:max-w-md">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

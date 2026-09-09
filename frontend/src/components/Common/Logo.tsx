@@ -1,11 +1,10 @@
 import { Link } from "@tanstack/react-router"
 
 import { useTheme } from "@/components/theme-provider"
+import { APP_NAME } from "@/config"
 import { cn } from "@/lib/utils"
 import icon from "/assets/images/fastapi-icon.svg"
 import iconLight from "/assets/images/fastapi-icon-light.svg"
-import logo from "/assets/images/fastapi-logo.svg"
-import logoLight from "/assets/images/fastapi-logo-light.svg"
 
 interface LogoProps {
   variant?: "full" | "icon" | "responsive"
@@ -20,41 +19,46 @@ export function Logo({
 }: LogoProps) {
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === "dark"
-
-  const fullLogo = isDark ? logoLight : logo
   const iconLogo = isDark ? iconLight : icon
 
   const content =
     variant === "responsive" ? (
-      <>
-        <img
-          src={fullLogo}
-          alt="FastAPI"
-          className={cn(
-            "h-6 w-auto group-data-[collapsible=icon]:hidden",
-            className,
-          )}
-        />
+      <div className="flex items-center gap-2.5 overflow-hidden">
         <img
           src={iconLogo}
-          alt="FastAPI"
-          className={cn(
-            "size-5 hidden group-data-[collapsible=icon]:block",
-            className,
-          )}
+          alt={APP_NAME}
+          className={cn("size-6 shrink-0", className)}
         />
-      </>
-    ) : (
+        <span className="font-semibold text-sm tracking-tight truncate group-data-[collapsible=icon]:hidden">
+          {APP_NAME}
+        </span>
+      </div>
+    ) : variant === "icon" ? (
       <img
-        src={variant === "full" ? fullLogo : iconLogo}
-        alt="FastAPI"
-        className={cn(variant === "full" ? "h-6 w-auto" : "size-5", className)}
+        src={iconLogo}
+        alt={APP_NAME}
+        className={cn("size-6 shrink-0", className)}
       />
+    ) : (
+      <div className="flex items-center gap-3">
+        <img
+          src={iconLogo}
+          alt={APP_NAME}
+          className={cn("size-8 shrink-0", className)}
+        />
+        <span className="font-bold text-xl tracking-tight text-foreground">
+          {APP_NAME}
+        </span>
+      </div>
     )
 
   if (!asLink) {
     return content
   }
 
-  return <Link to="/">{content}</Link>
+  return (
+    <Link to="/" className="inline-flex items-center">
+      {content}
+    </Link>
+  )
 }
